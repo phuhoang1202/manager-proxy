@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -51,16 +51,23 @@ module.exports = {
         success: '#219653',
         danger: '#D34053',
         warning: '#FFA70B',
+        ulHeaderOne: '#e7515a',
+        ulHeaderTwo: '#1abc9c',
+        borderColorGray: 'rgba(0,0,0,.125)',
+        colorGreenTitle: '#27ae60',
+        btnSignInHomePage: '#4361ee',
+        btnSignUpHomePage: '#e2a03f',
       },
       fontSize: {
         'title-xxl': ['44px', '55px'],
         'title-xl': ['36px', '45px'],
-        'title-xl2': ['33px', '45px'],
+        'title-xl2': ['32px', '44px'],
         'title-lg': ['28px', '35px'],
         'title-md': ['24px', '30px'],
         'title-md2': ['26px', '30px'],
         'title-sm': ['20px', '26px'],
         'title-xsm': ['18px', '24px'],
+        'title-xxx': ['15px', '21px'],
       },
       spacing: {
         4.5: '1.125rem',
@@ -230,6 +237,8 @@ module.exports = {
         6: '0px 3px 15px rgba(0, 0, 0, 0.1)',
         7: '-5px 0 0 #313D4A, 5px 0 0 #313D4A',
         8: '1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)',
+        '1x': '0 10px 20px -10px #4361ee',
+        '2x': '0 10px 20px -10px #e2a03f',
       },
       dropShadow: {
         1: '0px 1px 0px #E2E8F0',
@@ -251,4 +260,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};

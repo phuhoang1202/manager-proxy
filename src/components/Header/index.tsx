@@ -4,6 +4,7 @@ import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
 import LogoIcon from '../../images/logo/logo-icon.svg';
 import DarkModeSwitcher from './DarkModeSwitcher';
+import "./index.css"
 
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
@@ -56,13 +57,13 @@ const Header = (props: {
           </button>
           {/* <!-- Hamburger Toggle BTN --> */}
 
-          <Link className="block flex-shrink-0 lg:hidden" to="/">
+          {/* <Link className="block flex-shrink-0 lg:hidden" to="/">
             <img src={LogoIcon} alt="Logo" />
-          </Link>
+          </Link> */}
         </div>
 
-        <div className="hidden sm:block">
-          <form action="https://formbold.com/s/unique_form_id" method="POST">
+        <div className="">
+          {/* <form action="https://formbold.com/s/unique_form_id" method="POST">
             <div className="relative">
               <button className="absolute left-0 top-1/2 -translate-y-1/2">
                 <svg
@@ -94,7 +95,12 @@ const Header = (props: {
                 className="w-full bg-transparent pl-9 pr-4 text-black focus:outline-none dark:text-white xl:w-125"
               />
             </div>
-          </form>
+          </form> */}
+          <ul className='t-list-ul-header-homepage flex	items-center'>
+            <li><h3 className='text-black dark:text-white text-lg	'>VipProxy.vn</h3></li>
+            <li className='ml-5'><div className='py-1.5	 px-3	 bg-ulHeaderOne hidden sm:block text-white rounded'><a href="#">Mua Proxy tĩnh</a></div></li>
+            <li className='ml-5'><div className='py-1.5	 px-3	 bg-ulHeaderTwo hidden sm:block text-white rounded'><a href="#">Mua Proxy dân cư xoay</a></div></li>
+          </ul>
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">
@@ -104,11 +110,11 @@ const Header = (props: {
             {/* <!-- Dark Mode Toggler --> */}
 
             {/* <!-- Notification Menu Area --> */}
-            <DropdownNotification />
+            {/* <DropdownNotification /> */}
             {/* <!-- Notification Menu Area --> */}
 
             {/* <!-- Chat Notification Area --> */}
-            <DropdownMessage />
+            {/* <DropdownMessage /> */}
             {/* <!-- Chat Notification Area --> */}
           </ul>
 
