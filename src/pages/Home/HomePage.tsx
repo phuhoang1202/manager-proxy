@@ -5,7 +5,10 @@ function HomePage() {
   return (
     <>
       <section className="t-homepage-ssOne">
-        <div className="container p-5 rounded-xl border-borderColorGray border dark:border-white">
+        <div
+          className="container p-5 rounded-xl border-borderColorGray border dark:border-white"
+          style={{ maxWidth: '100%' }}
+        >
           <div className="pb-3">
             <p className="text-center	text-title-xxx mb-2.5	">
               VipProxy.vn - Cung cấp Proxy IPv6 Private, Proxy IPv4 Private,
@@ -23,11 +26,14 @@ function HomePage() {
                 Hệ thống hoạt động tự động 24/7 kể cả cuối tuần, Lễ, Tết...
               </strong>
             </p>
-            <div className="btn-signIn-signUp text-center">
-              <button className="bg-primary shadow-1x py-1.5	px-3 text-white rounded mx-1 transition hover:-translate-y-1 hover:shadow-none">
+            <div
+              className="btn-signIn-signUp text-center m-auto flex justify-between"
+              style={{ maxWidth: '13%' }}
+            >
+              <button className="bg-primary shadow-1x py-1.5	px-3 text-white rounded transition hover:-translate-y-1 hover:shadow-none">
                 Đăng nhập
               </button>
-              <button className="bg-btnSignUpHomePage shadow-2x py-1.5	px-3 text-white rounded mx-1 transition hover:-translate-y-1 hover:shadow-none">
+              <button className="bg-btnSignUpHomePage shadow-2x py-1.5	px-3 text-white rounded transition hover:-translate-y-1 hover:shadow-none">
                 Đăng ký
               </button>
             </div>

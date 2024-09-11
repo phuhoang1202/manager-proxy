@@ -57,6 +57,8 @@ module.exports = {
         colorGreenTitle: '#27ae60',
         btnSignInHomePage: '#4361ee',
         btnSignUpHomePage: '#e2a03f',
+        bgCount: '#fff9ed',
+        bgQuantity: 'rgba(0,0,0,.03)',
       },
       fontSize: {
         'title-xxl': ['44px', '55px'],

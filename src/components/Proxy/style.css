@@ -1,0 +1,19 @@
+.css-13cymwt-control:hover {
+    border: none !important;
+  }
+  
+  .css-13cymwt-control, .css-hlgwow{
+    border: none !important;
+  }
+  
+  .w-full.css-b62m3t-container:focus-visible {
+    border: none !important;
+  }
+
+  .css-b62m3t-container div {
+    border: none !important;
+  }
+
+  .out-Line-none:focus-visible {
+    outline: none;
+  }
