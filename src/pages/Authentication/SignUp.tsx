@@ -9,7 +9,6 @@ const SignUp: React.FC = () => {
     <>
       <Breadcrumb pageName="Đăng ký" />
 
-
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
@@ -150,7 +149,7 @@ const SignUp: React.FC = () => {
 
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
-              <span className="mb-1.5 block font-medium">Start for free</span>
+              {/* <span className="mb-1.5 block font-medium">Start for free</span> */}
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
                 Đăng ký
               </h2>
@@ -290,7 +289,7 @@ const SignUp: React.FC = () => {
 
                 <div className="mb-6">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
-                  Nhập lại mật khẩu
+                    Nhập lại mật khẩu
                   </label>
                   <div className="relative">
                     <input
@@ -326,7 +325,7 @@ const SignUp: React.FC = () => {
                 <div className="mb-5">
                   <input
                     type="submit"
-                    value="Đăng Ký Ngay" 
+                    value="Đăng Ký Ngay"
                     className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
                   />
                 </div>
@@ -372,7 +371,7 @@ const SignUp: React.FC = () => {
                   <p>
                     Đã có tài khoản?{' '}
                     <Link to="/auth/signin" className="text-primary">
-                    Đăng nhập
+                      Đăng nhập
                     </Link>
                   </p>
                 </div>

@@ -1,5 +1,8 @@
 import React from 'react';
 import ProxyIPv4 from '../../components/Proxy/ProxyIPv4';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFileInvoiceDollar } from '@fortawesome/free-solid-svg-icons'; // Import icon cần dùng
+import HistoryByProxyTable from '../../components/Proxy/HistoryBuyProxyTable';
 
 function HomePage() {
   return (
@@ -50,6 +53,21 @@ function HomePage() {
           </p>
         </div>
         <ProxyIPv4 />
+      </section>
+      <section className="t-homepage-ssThree mt-8">
+        <div className="w-11/12	m-auto border rounded border-borderColorGray">
+          <div className="bg-bgQuantity border  border-b-borderColorGray border-t-0 border-l-0 border-r-0">
+            <div className="py-3 px-5">
+              <h5 className="font-bold	text-xl	text-black">
+                <FontAwesomeIcon icon={faFileInvoiceDollar} />
+                &nbsp; Lịch sử mua Proxy
+              </h5>
+            </div>
+          </div>
+          <div className="p-5">
+            <HistoryByProxyTable />
+          </div>
+        </div>
       </section>
     </>
   );

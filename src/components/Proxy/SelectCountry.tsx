@@ -16,7 +16,7 @@ function SelectCountry() {
   ]);
   const [selectedCountry, setSelectedCountry] = useState('US');
   const [flagUrl, setFlagUrl] = useState('https://vipproxy.vn/flags/us.svg');
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState<number>(1);
   const [months, setMonths] = useState(1);
   const [basePrice] = useState(52000); // Giá cơ bản là 52,000₫
   const [totalPrice, setTotalPrice] = useState(basePrice);
@@ -34,7 +34,11 @@ function SelectCountry() {
 
   const handleCountChange = (e) => {
     const newCount = parseInt(e.target.value);
-    setCount(newCount);
+    if (!newCount) {
+      setCount(0);
+    } else {
+      setCount(newCount);
+    }
   };
 
   const handleMonthsChange = (e) => {
@@ -64,7 +68,7 @@ function SelectCountry() {
               id="countries"
               value={selectedCountry}
               onChange={handleCountryChange}
-              className="dark:text-black out-Line-none bg-gray-50 border border-borderColorGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark-focus-outline-none"
+              className="dark:text-black out-Line-none bg-gray-50 border border-borderColorGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark-focus-outline-none"
             >
               {countries.map((country) => (
                 <option key={country.code} value={country.code}>
@@ -95,9 +99,10 @@ function SelectCountry() {
           <input
             type="number"
             id="number-input"
+            min={1}
             value={count}
             onChange={handleCountChange}
-            className="dark:text-black out-Line-none bg-gray-50 border border-borderColorGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark-focus-outline-none"
+            className="dark:text-black placeholder out-Line-none bg-gray-50 border border-borderColorGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark-focus-outline-none"
             placeholder="1"
             required
           />
@@ -114,7 +119,7 @@ function SelectCountry() {
             id="months"
             value={months}
             onChange={handleMonthsChange}
-            className="dark:text-black out-Line-none bg-gray-50 border border-borderColorGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark-focus-outline-none"
+            className="dark:text-black out-Line-none bg-gray-50 border border-borderColorGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark-focus-outline-none"
           >
             <option value={1}>1 tháng</option>
             <option value={2}>2 tháng</option>
@@ -124,7 +129,7 @@ function SelectCountry() {
 
         <div className="mb-3 border rounded-md border-btnSignUpHomePage bg-bgCount">
           <div className="alert alert-light-warning text-center p-3.5 text-btnSignUpHomePage font-bold">
-            Tổng: <span className="sum">{totalPrice}</span>₫
+            Tổng: <span className="sum">{totalPrice || 0}</span>₫
           </div>
         </div>
         <button
