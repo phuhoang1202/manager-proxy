@@ -1,15 +1,12 @@
-import React from 'react';
-import './style.css';
+import { Dispatch, SetStateAction } from 'react';
 import SelectCountry from './SelectCountry';
+import './style.css';
 
-const includedFeatures = [
-  'Private forum access',
-  'Member resources',
-  'Entry to annual conference',
-  'Official member t-shirt',
-];
+type PropsProxyIPv4 = {
+  setIsOpenQR: Dispatch<SetStateAction<boolean>>;
+}
 
-function ProxyIPv4() {
+function ProxyIPv4({ setIsOpenQR }: PropsProxyIPv4) {
   return (
     <>
       <div className="mt-10">
@@ -27,7 +24,7 @@ function ProxyIPv4() {
             <p className="text-center text-warning">
               Một người dùng. Cài đặt nhanh
             </p>
-            <SelectCountry />
+            <SelectCountry setIsOpenQR={setIsOpenQR} />
           </div>
           <div className="quantity bg-bgQuantity m-auto">
             <div className="py-3 px-2 text-center text-sm dark:text-white dark:border-white rounded-xl rounded-t-none		 underline decoration-dotted border border-transparent border-t-borderColorGray">
