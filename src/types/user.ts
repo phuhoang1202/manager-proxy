@@ -1,10 +1,29 @@
-// để tạm type, sau này dựa vào api và định nghĩa lại
-export type User = {
-    id: number;
-    email: string;
+export type CreateUserDto = {
+    name: string;
     username: string;
-    subUser: string;
-    status: boolean;
-    fullname?: string;
-    image?: string;
-};
+    email: string;
+    phone_number: string;
+    password: string;
+}
+
+export type LoginDto = Pick<CreateUserDto, 'username' | 'password'>;
+
+export type LoginResponse = {
+    user_id: number;
+    token: string;
+}
+
+export type UserDetail = {
+    total_count: number;
+    id: number;
+    username: string;
+    name: string;
+    email: string;
+    phone_number: string;
+    password: string;
+    active: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export type UserSlice = Omit<LoginResponse & UserDetail, 'id' | 'password'>;

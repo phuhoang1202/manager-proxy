@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { CONSTANT } from '../constants/constant';
+import { LocalStorageService } from '../utils/localStorageService';
+import Toast from '../configs/ToastConfig';
 
 const baseURL = import.meta.env.VITE_BACKEND_API_BASE_URL;
 
@@ -13,9 +14,9 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
-        const token = localStorage.getItem(CONSTANT.TOKEN);
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+        const loginInfo = LocalStorageService.getLoginInfo();
+        if (loginInfo) {
+            config.headers.token = loginInfo.token;
         }
         return config;
     },
@@ -29,8 +30,9 @@ axiosClient.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error.response?.status === 401) {
+        if (error.response?.status === 403) {
             // Xử lý lỗi 401, ví dụ: logout người dùng
+            Toast.warn(error.response.data.message);
         }
         return Promise.reject(error);
     }

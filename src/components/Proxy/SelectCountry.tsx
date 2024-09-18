@@ -1,9 +1,12 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { CONSTANT } from '../../constants/constant';
 import Toast from '../../configs/ToastConfig';
 import { formatVNMoney } from '../../utils';
+import { LocalStorageService } from '../../utils/localStorageService';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import TimeService from '../../utils/timeService';
+import { getUserDetail } from '../../api/authApi';
 
 const countries = [
     { code: 'US', name: 'United States', flag: 'https://vipproxy.vn/flags/us.svg' },
@@ -12,15 +15,16 @@ const countries = [
     { code: 'SG', name: 'Singapore', flag: 'https://vipproxy.vn/flags/sg.svg' },
 ];
 
-type Packages = {
-    packagesName: string;
+type VpsPackage = {
+    packageId: number;
+    vpsPackageName: string;
     countryCode: string;
     quantity: number;
     monthsToBuy: number;
     basePrice: number;
 }
 
-type PackageField = keyof Packages;
+type PackageField = keyof VpsPackage;
 
 type PropsSelectCountry = {
     setIsOpenQR: Dispatch<SetStateAction<boolean>>;
@@ -29,43 +33,63 @@ type PropsSelectCountry = {
 function SelectCountry({ setIsOpenQR }: PropsSelectCountry) {
 
     const navigate = useNavigate();
-    const [packages, setPackages] = useState<Packages>({
-        packagesName: 'Proxy IPv4 Private',
+    const user = useAppSelector(state => state.user.data);
+    const [vpsPackage, setVpsPackage] = useState<VpsPackage>({
+        packageId: 1,
+        vpsPackageName: 'Proxy IPv4 Private',
         countryCode: 'US',
         quantity: 1,
         monthsToBuy: 1,
         basePrice: 1000,
     })
 
-    const totalPrice = packages.quantity * packages.monthsToBuy * packages.basePrice;
+    const totalPrice = vpsPackage.quantity * vpsPackage.monthsToBuy * vpsPackage.basePrice;
 
-    const handleChangeFields = (fieldName: PackageField, value: Packages[PackageField]) => {
+    const handleChangeFields = (fieldName: PackageField, value: VpsPackage[PackageField]) => {
         if (fieldName === 'quantity' && typeof value === 'number' && (value < 1 || !value)) {
-            setPackages({
-                ...packages,
+            setVpsPackage({
+                ...vpsPackage,
                 [fieldName]: 1,
             });
         } else {
-            setPackages({
-                ...packages,
+            setVpsPackage({
+                ...vpsPackage,
                 [fieldName]: value,
             });
         }
     };
 
-    const handleClickBuy = () => {
-        const userLogin = JSON.parse(localStorage.getItem(CONSTANT.USERLOGIN) as string || '');
-        if (!userLogin) {
-            Toast.error('Bạn cần đăng nhập');
-            setTimeout(() => navigate('auth/signin'));
-        } else {
-            // sau này addInfo còn thêm nhiều thông tin liên quan đến account để xác minh giao dịch
-            // ${dayjs().format("DD/MM/YYYY HH:mm:ss")}
+    const handleClickBuy = async () => {
+        const userLocal = LocalStorageService.getLoginInfo();
 
-            const addInfo = `${userLogin.email.replace("@gmail.com", "")} ${packages.countryCode} ${packages.quantity} ${packages.monthsToBuy} ${packages.basePrice} ${totalPrice}`
-            localStorage.setItem(CONSTANT.TRANSFER_INFO, JSON.stringify({ packages, totalPrice, addInfo }));
-            setIsOpenQR(true);
+        if (!userLocal || !user) {
+            Toast.error('Bạn cần đăng nhập lại');
+            return;
         }
+
+        try {
+            await getUserDetail(userLocal.user_id);
+        } catch (error) {
+            Toast.error('Bạn cần đăng nhập lại');
+            return;
+        }
+
+        const currentTimeQR = TimeService.getCurrentTimeQR();
+        const additionalInfo = `${user.username} ${vpsPackage.packageId} ${vpsPackage.countryCode} ${vpsPackage.quantity} ${vpsPackage.monthsToBuy} ${vpsPackage.basePrice} ${totalPrice} ${currentTimeQR}`;
+
+        LocalStorageService.saveTransferInfo({
+            userId: user.user_id,
+            packageId: vpsPackage.packageId,
+            packagesName: vpsPackage.vpsPackageName,
+            countryCode: vpsPackage.countryCode,
+            quantity: vpsPackage.quantity,
+            monthsToBuy: vpsPackage.monthsToBuy,
+            basePrice: vpsPackage.basePrice,
+            totalPrice,
+            transactionDate: currentTimeQR,
+            additionalInfo,
+        })
+        setIsOpenQR(true);
     }
 
     return (
@@ -79,7 +103,7 @@ function SelectCountry({ setIsOpenQR }: PropsSelectCountry) {
                     <div className="flex">
                         <select
                             id="countryCode"
-                            value={packages.countryCode}
+                            value={vpsPackage.countryCode}
                             className="dark:bg-form-input dark:text-white out-Line-none bg-gray-50 border border-borderColorGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark-focus-outline-none"
                             style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
                             onChange={(e) => handleChangeFields('countryCode', e.target.value)}
@@ -94,7 +118,7 @@ function SelectCountry({ setIsOpenQR }: PropsSelectCountry) {
                         <div className="p-2 border border-borderColorGray border-left-none bg-[#f1f2f3] dark:bg-graydark flex justify-center items-center">
                             <img
                                 style={{ width: '24px', height: 'auto' }}
-                                src={countries.find(coutry => coutry.code === packages.countryCode)?.flag}
+                                src={countries.find(coutry => coutry.code === vpsPackage.countryCode)?.flag}
                                 alt="country flag"
                             />
                         </div>
@@ -114,7 +138,7 @@ function SelectCountry({ setIsOpenQR }: PropsSelectCountry) {
                         min={1}
                         required
                         placeholder="1"
-                        value={packages.quantity}
+                        value={vpsPackage.quantity}
                         onChange={(e) => handleChangeFields('quantity', +e.target.value)}
                         className="dark:bg-form-input dark:text-white placeholder out-Line-none bg-gray-50 border border-borderColorGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark-focus-outline-none"
                     />
@@ -129,7 +153,7 @@ function SelectCountry({ setIsOpenQR }: PropsSelectCountry) {
                     </label>
                     <select
                         id="monthsToBuy"
-                        value={packages.monthsToBuy}
+                        value={vpsPackage.monthsToBuy}
                         onChange={(e) => handleChangeFields('monthsToBuy', e.target.value)}
                         className="dark:bg-form-input dark:text-white out-Line-none bg-gray-50 border border-borderColorGray text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500 dark-focus-outline-none"
                     >

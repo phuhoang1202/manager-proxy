@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -28,22 +28,47 @@ import AuthLayout from "./layout/AuthLayout";
 import ProxyLayout from "./layout/ProxyLayout";
 
 import { AppDispatch } from './redux/store';
-import { loadUserFromLocalStorage } from './redux/features/userSlice';
+import { LocalStorageService } from './utils/localStorageService';
+import Toast from './configs/ToastConfig';
+import { setUser } from './redux/features/userSlice';
+import { UserDetail, UserSlice } from './types/user';
+import { getUserDetail } from './api/authApi';
 
 function App() {
     const [loading, setLoading] = useState<boolean>(false);
     const { pathname } = useLocation();
     const dispatch = useDispatch<AppDispatch>();
 
+    const loadUserDetail = async () => {
+        setLoading(true);
+        const userLocal = LocalStorageService.getLoginInfo();
+        if (userLocal) {
+            const { user_id, token } = userLocal;
+            try {
+                const userDetailResult = await getUserDetail(user_id);
+                if (userDetailResult.data.status === 200) {
+                    const userDetail: UserDetail = userDetailResult.data.data as UserDetail;
+                    const { id, ...data } = userDetail;
+                    const user = { user_id, token, ...data } as UserSlice;
+                    dispatch(setUser(user));
+                } else {
+                    Toast.warn('Không lấy được thông tin người dùng');
+                }
+            } catch (error) {
+                Toast.error('Đăng nhập lại');
+            }
+        }
+        setLoading(false);
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
 
-    useEffect(() => {
-        dispatch(loadUserFromLocalStorage())
-        setTimeout(() => setLoading(false), 1000);
+    useLayoutEffect(() => {
+        loadUserDetail();
+        // setTimeout(() => setLoading(false), 1000);
     }, []);
-
 
     return loading ? (
         <Loader />

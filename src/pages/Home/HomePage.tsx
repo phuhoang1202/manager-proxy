@@ -7,15 +7,16 @@ import ProxyIPv4 from '../../components/Proxy/ProxyIPv4';
 import HistoryByProxyTable from '../../components/Proxy/HistoryBuyProxyTable';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import ModalQR from '../../configs/ModalQR';
-import { CONSTANT } from '../../constants/constant';
+import { LocalStorageService } from '../../utils/localStorageService';
 
 function HomePage() {
 
-    const userLogin = useAppSelector(state => state.user.data);
+    const user = useAppSelector(state => state.user.data);
+    const userLocal = LocalStorageService.getLoginInfo();
     const [isOpenQR, setIsOpenQR] = useState<boolean>(false);
 
     const handleCloseQR = () => {
-        localStorage.setItem(CONSTANT.TRANSFER_INFO, JSON.stringify(null));
+        LocalStorageService.clearTransferInfo();
         setIsOpenQR(false)
     }
 
@@ -26,7 +27,7 @@ function HomePage() {
                 {
                     isOpenQR ?
                         <div className='absolute w-full h-full z-10' style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', pointerEvents: 'auto' }} >
-                            <div className='absolute w-full top-20 flex justify-center' >
+                            <div className='absolute w-full top-10 flex justify-center' >
                                 <ModalQR closeModal={handleCloseQR} />
                             </div>
                         </div>
@@ -56,7 +57,7 @@ function HomePage() {
                                 </strong>
                             </p>
                             <div
-                                className={`btn-signIn-signUp text-center m-auto ${userLogin ? 'hidden' : 'flex'} justify-between gap-4`}
+                                className={`btn-signIn-signUp text-center m-auto ${(user || userLocal) ? 'hidden' : 'flex'} justify-between gap-4`}
                                 style={{ maxWidth: '13%' }}
                             >
                                 <button className="bg-primary shadow-1x py-1.5	px-3 text-white rounded transition hover:-translate-y-1 hover:shadow-none min-w-max">

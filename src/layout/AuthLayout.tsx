@@ -1,15 +1,13 @@
 import { ReactNode, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { CONSTANT } from '../constants/constant';
+import { LocalStorageService } from '../utils/localStorageService';
 
 const AuthLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     const navigate = useNavigate();
 
     useLayoutEffect(() => {
-        // code check cache account
-        const userLogin = JSON.parse(localStorage.getItem(CONSTANT.USERLOGIN) as string);
+        const userLogin = LocalStorageService.getLoginInfo();
         if (userLogin) {
             navigate('/');
             return
