@@ -24,8 +24,8 @@ import UtilitiesThree from './pages/UtilityManagement/UtilitiesFree/UtilitiesThr
 import UtilitiesFour from './pages/UtilityManagement/UtilitiesFree/UtilitiesFour';
 import UtilitiesFive from './pages/UtilityManagement/UtilitiesFree/UtilitiesFive';
 
-import AuthLayout from "./layout/AuthLayout";
-import ProxyLayout from "./layout/ProxyLayout";
+import AuthLayout from './layout/AuthLayout';
+import ProxyLayout from './layout/ProxyLayout';
 
 import { AppDispatch } from './redux/store';
 import { LocalStorageService } from './utils/localStorageService';
@@ -33,6 +33,11 @@ import Toast from './configs/ToastConfig';
 import { setUser } from './redux/features/userSlice';
 import { UserDetail, UserSlice } from './types/user';
 import { getUserDetail } from './api/authApi';
+import ForgotPass from './pages/Authentication/ForgotPass';
+import Dashbroad from './pages/admin/dashbroad';
+import { ManagementUsAcc } from './pages/admin/managementUsAcc';
+import { ManagementPost } from './pages/admin/managementPost';
+import { ManagementCard } from './pages/admin/managementCard';
 
 function App() {
     const [loading, setLoading] = useState<boolean>(false);
@@ -59,7 +64,7 @@ function App() {
             }
         }
         setLoading(false);
-    }
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -75,27 +80,56 @@ function App() {
     ) : (
         <DefaultLayout>
             <Routes>
-                <Route index element={<> <PageTitle title="Trang chủ" /> <HomePage /> </>} />
+                <Route
+                    index
+                    element={
+                        <>
+                            <PageTitle title="Trang chủ" /> <HomePage />
+                        </>
+                    }
+                />
 
-                <Route path='auth' element={<AuthLayout children={<Outlet />} />}>
+                <Route path="auth" element={<AuthLayout children={<Outlet />} />}>
                     <Route index element={<Navigate to="signin" />} />
-                    <Route path="signin" element={<> <PageTitle title="Đăng nhập" /> <SignIn /> </>} />
-                    <Route path="signup" element={<> <PageTitle title="Đăng ký" /> <SignUp />  </>} />
+                    <Route
+                        path="signin"
+                        element={
+                            <>
+                                <PageTitle title="Đăng nhập" /> <SignIn />
+                            </>
+                        }
+                    />
+                    <Route
+                        path="signup"
+                        element={
+                            <>
+                                <PageTitle title="Đăng ký" /> <SignUp />
+                            </>
+                        }
+                    />
+                    <Route
+                        path="forgotpass"
+                        element={
+                            <>
+                                <PageTitle title="Quên mật khẩu" /> <ForgotPass />
+                            </>
+                        }
+                    />
                 </Route>
 
-                <Route path='buy-proxy'>
+                <Route path="buy-proxy">
                     <Route index element={<BuyProxyOne />} />
                     <Route path="rotating" element={<BuyProxyTwo />} />
                 </Route>
 
-                <Route path='proxy' element={<ProxyLayout children={<Outlet />} />}>
+                <Route path="proxy" element={<ProxyLayout children={<Outlet />} />}>
                     <Route path="ipv4" element={<ManegementOne />} />
                     <Route path="ipv4-shared" element={<ManegementTwo />} />
                     <Route path="ipv6" element={<ManegementThree />} />
                     <Route path="ipv4-rotating" element={<ManegementFour />} />
                 </Route>
 
-                <Route path='utilities'>
+                <Route path="utilities">
                     <Route path="myip" element={<UtilitiesOne />} />
                     <Route path="whois" element={<UtilitiesTwo />} />
                     <Route path="blacklist" element={<UtilitiesThree />} />
@@ -103,11 +137,17 @@ function App() {
                     <Route path="website-ipv6-support" element={<UtilitiesFive />} />
                 </Route>
 
-                <Route path='posts'>
+                <Route path="posts">
                     <Route path="news" element={<Status />} />
                     <Route path="term" element={<Terms />} />
                     <Route path="policy" element={<Policy />} />
                     <Route path="contact" element={<Contact />} />
+                </Route>
+                <Route path="admin">
+                    <Route path="dashbroad" element={<Dashbroad />} />
+                    <Route path="ManagementUsAcc" element={<ManagementUsAcc />} />
+                    <Route path="ManagementPost" element={<ManagementPost />} />
+                    <Route path="ManagementCard" element={<ManagementCard />} />
                 </Route>
             </Routes>
         </DefaultLayout>

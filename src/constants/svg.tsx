@@ -1,4 +1,4 @@
-import Toast from "../configs/ToastConfig"
+import Toast from '../configs/ToastConfig';
 
 export const UserSvg = () => (
     <svg
@@ -20,7 +20,7 @@ export const UserSvg = () => (
             />
         </g>
     </svg>
-)
+);
 
 export const ContactSvg = () => (
     <svg
@@ -38,7 +38,26 @@ export const ContactSvg = () => (
             />
         </g>
     </svg>
-)
+);
+
+export const Phone = () => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+    >
+        <g opacity="0.5">
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3 5a2 2 0 012-2h3.28a2 2 0 011.7.89l1.6 2.4a2 2 0 01-.23 2.52l-2 2a16 16 0 006.4 6.4l2-2a2 2 0 012.52-.23l2.4 1.6a2 2 0 01.89 1.7V19a2 2 0 01-2 2h-1a18 18 0 01-18-18V5z"
+            />
+        </g>
+    </svg>
+);
 
 export const UnlockSvg = () => (
     <svg
@@ -60,64 +79,35 @@ export const UnlockSvg = () => (
             />
         </g>
     </svg>
-)
+);
 
 export const LockSvg = () => (
-    <svg
-        className="fill-current"
-        width="22"
-        height="22"
-        viewBox="0 0 22 22"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
         <g opacity="0.5">
-            <path
-                d="M13.6308 15.72C13.6308 16.62 12.9008 17.35 12.0008 17.35C11.3608 17.35 10.8108 16.98 10.5508 16.45L12.7308 14.27C13.2608 14.53 13.6308 15.08 13.6308 15.72Z"
-                fill="#a4acb7"
-            />{" "}
-            <path
-                opacity="0.4"
-                d="M7.35 9.43994C3.25 9.43994 2 10.6899 2 14.7899V16.6499C2 18.6999 2.31 20.0399 3.14 20.8599L9.1 14.8999C9.38 13.8899 10.17 13.0999 11.18 12.8199L14.56 9.43994H7.35Z"
-                fill="#a4acb7"
-            />{" "}
-            <path
-                d="M18.1307 5.87L16.8707 7.13C16.8307 5.35 16.1607 3.4 12.0007 3.4C7.9507 3.4 7.1207 5.35 7.1207 8.28V9.45C6.6107 9.45 6.1407 9.48 5.7207 9.53V8.28C5.7207 5.58 6.3707 2 12.0007 2C15.5407 2 17.6007 3.3 18.1307 5.87Z"
-                fill="#a4acb7"
-            />{" "}
-            <path
-                opacity="0.4"
-                d="M21.9999 14.79V16.65C21.9999 20.75 20.7499 22 16.6499 22H7.34992C6.50992 22 5.77992 21.95 5.16992 21.83L9.52992 17.47C10.0899 18.24 10.9799 18.74 11.9999 18.74C13.6699 18.74 15.0199 17.39 15.0199 15.72C15.0199 14.7 14.5199 13.81 13.7499 13.25L17.5399 9.45996C20.9299 9.64996 21.9999 11 21.9999 14.79Z"
-                fill="#a4acb7"
-            />{" "}
-            <path
-                d="M21.7709 2.22988C21.4709 1.92988 20.9809 1.92988 20.6809 2.22988L2.23086 20.6899C1.93086 20.9899 1.93086 21.4799 2.23086 21.7799C2.38086 21.9199 2.57086 21.9999 2.77086 21.9999C2.97086 21.9999 3.16086 21.9199 3.31086 21.7699L21.7709 3.30988C22.0809 3.00988 22.0809 2.52988 21.7709 2.22988Z"
-                fill="#a4acb7"
-            />{" "}
+            <path d="M10 3C5 3 1 6.5 1 10s4 7 9 7 9-3.5 9-7-4-7-9-7zm0 12c-2.7 0-5-2.24-5-5s2.3-5 5-5 5 2.24 5 5-2.3 5-5 5zm0-3.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
         </g>
     </svg>
-)
+);
 
-export const CoppySvg: React.FC<{ w?: number | number; h?: number | string; text: string }> = (
-    { w = 4, h = 'auto', text = '' }
-) => (
-    <span className={`inline-block w-${w} h-${h} cursor-pointer`}
+export const CoppySvg: React.FC<{ w?: number | number; h?: number | string; text: string }> = ({
+    w = 4,
+    h = 'auto',
+    text = '',
+}) => (
+    <span
+        className={`inline-block w-${w} h-${h} cursor-pointer`}
         onClick={() => {
-            navigator.clipboard.writeText(text)
+            navigator.clipboard
+                .writeText(text)
                 .then(() => {
-                    Toast.success('Coppy thành công')
+                    Toast.success('Coppy thành công');
                 })
                 .catch(() => {
-                    Toast.error('Lỗi coppy')
+                    Toast.error('Lỗi coppy');
                 });
         }}
     >
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 56 64"
-            xmlSpace="preserve"
-            fill="#000"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 64" xmlSpace="preserve" fill="#000">
             <g fill="none" stroke="#6B6C6E" strokeWidth={2}>
                 <path
                     d="M42 47.1V53c0 1.1-.9 2-2 2H2c-1.1 0-2-.9-2-2V2C0 .9.9 0 2 0h9.9M7 13h5M7 22h5M7 29h5M7 38h5M7 44h5"
@@ -136,4 +126,4 @@ export const CoppySvg: React.FC<{ w?: number | number; h?: number | string; text
             </g>
         </svg>
     </span>
-)
+);

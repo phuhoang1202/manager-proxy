@@ -226,3 +226,11 @@ body {
 }
 
 
+.t-disabled .absolute {
+  background-color: transparent !important;
+  z-index: -1000 !important;
+}
+
+.t-disabled .border-transparent {
+  border-color: unset !important;
+}
