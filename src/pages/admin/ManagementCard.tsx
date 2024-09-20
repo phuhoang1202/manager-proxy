@@ -54,7 +54,7 @@ export function ManagementCard(): JSX.Element {
         <>
             <section className="t-homepage-ssTwo mb-10">
                 <div className="text-center">
-                    <h2 className="text-title-xl2 mb-2 font-semibold">Quản lý đơn hàng</h2>
+                    <h2 className="text-title-xl2 mb-2 font-semibold">Quản lý người dùng</h2>
                 </div>
             </section>
             <div className="overflow-x-auto t-disabled border-inherit rounded border ">
