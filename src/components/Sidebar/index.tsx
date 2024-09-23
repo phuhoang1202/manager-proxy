@@ -667,10 +667,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     </div>
                 </nav>
 
+                {/* admin */}
+                {/* 
                 <nav className="!mt-0 py-4 px-4 lg:mt-9 lg:px-6">
                     <div>
                         <ul className="mb-6 flex flex-col gap-1.5">
-                            {/* <!-- Menu Item Dashboard --> */}
                             <NavLink
                                 to="/admin/dashbroad"
                                 className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
@@ -694,7 +695,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                 </svg>
                                 Trang chủ
                             </NavLink>
-                            {/* <!-- Menu Item Auth Pages --> */}
                             <SidebarLinkGroup activeCondition={pathname === '/auth' || pathname.includes('auth')}>
                                 {(handleClick, open) => {
                                     return (
@@ -758,7 +758,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                                     />
                                                 </svg>
                                             </NavLink>
-                                            {/* <!-- Dropdown Menu Start --> */}
                                             <div className={`translate transform overflow-hidden ${!open && 'hidden'}`}>
                                                 <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                                                     <li>
@@ -823,13 +822,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                                                     </li>
                                                 </ul>
                                             </div>
-                                            {/* <!-- Dropdown Menu End --> */}
                                         </React.Fragment>
                                     );
                                 }}
                             </SidebarLinkGroup>
-                            {/* <!-- Menu Item Auth Pages --> */}
-                            {/* <!-- Menu Item Dashboard --> */}
                         </ul>
                     </div>
 
@@ -924,7 +920,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             </li>
                         </ul>
                     </div>
-                </nav>
+                </nav> */}
                 {/* <!-- Sidebar Menu --> */}
             </div>
         </aside>
